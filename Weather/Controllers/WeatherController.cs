@@ -45,7 +45,44 @@ namespace Weather.Controllers
                 }
 
                 // Time to create a read model
-
+                var rm = new WeatherDataRM(
+                    chart: new Chart(
+                        caption: "Weathe rin York",
+                        subCaption: "Based on 2022 data",
+                        numberPrefix: "",
+                        theme:"fusion",
+                        radarFillColour: "#fff"
+                    ),
+                    categories: new List<Category> 
+                    { 
+                        new Category(
+                            new List<Label>
+                            {
+                                new Label("Jan"),
+                                new Label("Feb"),
+                                new Label("Mar"),
+                                new Label("Apr"),
+                                new Label("May"),
+                                new Label("Jun"),
+                                new Label("Jul"),
+                                new Label("Aug"),
+                                new Label("Sep"),
+                                new Label("Oct"),
+                                new Label("Nov"),
+                                new Label("Dec")
+                            }    
+                            
+                        )
+                    },
+                    dataSet: new List<DataSet> 
+                    { 
+                        new DataSet
+                        (
+                            seriesName: "Average temperature",
+                            dataForChart
+                        )
+                    }
+                );
             }
 
             
