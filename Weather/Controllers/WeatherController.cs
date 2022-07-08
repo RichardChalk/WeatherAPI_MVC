@@ -7,7 +7,13 @@ namespace Weather.Controllers
 {
     public class WeatherController : Controller
     {
-        public async Task<IActionResult> Index()
+        public WeatherDataRM RM { get; set; }
+        
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Weather()
         {
             // Make request to api
             var client = new HttpClient();
@@ -45,7 +51,7 @@ namespace Weather.Controllers
                 }
 
                 // Time to create a read model
-                var rm = new WeatherDataRM(
+                RM = new WeatherDataRM(
                     chart: new Chart(
                         caption: "Weathe rin York",
                         subCaption: "Based on 2022 data",
@@ -85,9 +91,7 @@ namespace Weather.Controllers
                 );
             }
 
-            
-
-            return View();
+            return Ok(RM);
         }
     }
 }
