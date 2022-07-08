@@ -13,6 +13,7 @@ namespace Weather.Controllers
         {
             return View();
         }
+        [HttpGet]
         public async Task<IActionResult> Weather()
         {
             // Make request to api
@@ -20,7 +21,7 @@ namespace Weather.Controllers
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://meteostat.p.rapidapi.com/stations/monthly?station=10637&start=2020-01-01&end=2020-12-31"),
+                RequestUri = new Uri("https://meteostat.p.rapidapi.com/stations/monthly?station=72502&start=2021-01-01&end=2021-12-31"),
                 Headers =
                 {
                     { "X-RapidAPI-Key", "7306dc1932msh2d45ff9ccce401ap193e40jsn0c2d7d3d328b" },
@@ -53,7 +54,7 @@ namespace Weather.Controllers
                 // Time to create a read model
                 RM = new WeatherDataRM(
                     chart: new Chart(
-                        caption: "Weathe rin York",
+                        caption: "Weather in York",
                         subCaption: "Based on 2022 data",
                         numberPrefix: "",
                         theme:"fusion",
