@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Weather.ReadModels;
 
 namespace Weather.Controllers
 {
@@ -20,14 +21,34 @@ namespace Weather.Controllers
                     { "X-RapidAPI-Host", "meteostat.p.rapidapi.com" },
                 },
             };
+            
             using (var response = await client.SendAsync(request))
             {
                 response.EnsureSuccessStatusCode();
+                // data as Json format
                 var data = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(data);
+
+                
+                JObject json = JObject.Parse(data);
+                
+                // access 'data' property
+                JToken dataToken = json["data"];
+
+                // Create o list of monthly data
+                IEnumerable<JToken> year = dataToken.Children();
+
+                // Create and fill monthly into list for chart
+                List<Data> dataForChart = new List<Data>();
+                foreach (var month in year)
+                {
+                    dataForChart.Add(new Data((double)month["tavg"]));
+                }
+
+                // Time to create a read model
+
             }
 
-
+            
 
             return View();
         }
